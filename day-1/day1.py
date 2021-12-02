@@ -16,8 +16,6 @@ def number_of_increases_slices(Lines):
     number_of_increases = -1
     for i in range(len(Lines) - window_size + 1):
         lineSum = sum(Lines[i: i + window_size])
-        # print(Lines[i: i + window_size])
-
         if previous_line_slice < lineSum:
             number_of_increases += 1
         previous_line_slice = lineSum
