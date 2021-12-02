@@ -1,27 +1,27 @@
 inputfile = open('day-1/day1_input.txt', 'r')
 Lines = list(map(int, inputfile.readlines()))
 
-window_size = 3
-count = 0
-previous_line = 0
-previous_line_slice = 0
-count_lines_larger_than_previous = -1
-count_slice_of_lines_larger_than_previous = -1
+def number_of_increases(Lines):
+    number_of_increases = -1
+    previous_line = 0
+    for line in Lines:
+        if previous_line < line:
+            number_of_increases += 1
+        previous_line = line
+    return number_of_increases
 
-for line in Lines:
-    count += 1
-    if previous_line < line:
-        count_lines_larger_than_previous += 1
-    previous_line = line
+def number_of_increases_slices(Lines):
+    window_size = 3
+    previous_line_slice = 0
+    number_of_increases = -1
+    for i in range(len(Lines) - window_size + 1):
+        lineSum = sum(Lines[i: i + window_size])
+        # print(Lines[i: i + window_size])
 
-for i in range(len(Lines) - window_size + 1):
-    lineSum = sum(Lines[i: i + window_size])
-    # print(Lines[i: i + window_size])
+        if previous_line_slice < lineSum:
+            number_of_increases += 1
+        previous_line_slice = lineSum
+    return number_of_increases
 
-    if previous_line_slice < lineSum:
-        count_slice_of_lines_larger_than_previous += 1
-    previous_line_slice = lineSum
-
-print("Total count: " + str(count))
-print("1. Lines bigger than previous line: " + str(count_lines_larger_than_previous))
-print("2. Slice of Lines bigger than previous slice: " + str(count_slice_of_lines_larger_than_previous))
+print("1. Lines bigger than previous line: " + str(number_of_increases(Lines)))
+print("2. Slice of Lines bigger than previous slice: " + str(number_of_increases_slices(Lines)))
