@@ -1,6 +1,3 @@
-from os import waitpid
-
-
 inputfile = open('day-6/day6_input.txt', 'r')
 # inputfile = open('day-6/day6_input_ex.txt', 'r')
 
