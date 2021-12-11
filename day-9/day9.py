@@ -1,8 +1,8 @@
 from os import read
 import numpy as np
 
-#inputfile = open('day-9/day9_input.txt', 'r')
-inputfile = open('day-9/day9_input_ex.txt', 'r')
+inputfile = open('day-9/day9_input.txt', 'r')
+#inputfile = open('day-9/day9_input_ex.txt', 'r')
 
 def getMatrix(inputfile):
     array = []
@@ -75,11 +75,13 @@ def findNeighboursRecursively(M, x, y, List):
             del neighbours[i]
         if M[coord] == 9:
             del neighbours[i]
-    for point in neighbours:
-        x2, y2 = point
-        List = findNeighboursRecursively(M, x2, y2, List)
-    print(getNeighbourValues(M, List))
-    print(List)
+    for i in range(len(neighbours)-1, -1, -1):
+        neighbour = neighbours[i]
+        if neighbour in List:
+            del neighbours[i]
+            continue
+        x2, y2 = neighbour
+        List = (findNeighboursRecursively(M, x2, y2, List))
     return List
 
 def getSizeOfThreeiggestBasins(basins):
