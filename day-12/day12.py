@@ -69,8 +69,8 @@ startExit = 'start'
 allPossiblePaths = getAllPossiblePaths(dictOfHallways, [], [], startExit)
 
 print("Result:")
-for path in allPossiblePaths:
-    print(path)
+# for path in allPossiblePaths:
+#     print(path)
 
 print("amount of paths:")
 print(len(allPossiblePaths))
