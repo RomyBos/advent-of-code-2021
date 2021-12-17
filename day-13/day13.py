@@ -1,7 +1,7 @@
 import numpy as np
 
-# inputfile = open('day-13/day13_input.txt', 'r')
-inputfile = open('day-13/day13_input_ex.txt', 'r')
+inputfile = open('day-13/day13_input.txt', 'r')
+#inputfile = open('day-13/day13_input_ex.txt', 'r')
 
 def placeDotsOnMatrix(M, dots):
     pass
@@ -47,18 +47,43 @@ def foldLines(M, listFoldLines):
         coord = fold['coord']
         value = fold['value']
         if coord == 'x':
-            M.transpose()
-        for i in range(len(M[value])):
-            M[value, i] = '-'
-        M = np.delete(M, value, axis=0)
-        for i in M:
-            
-            print(i)
+            M = M.transpose()
+        #M = np.delete(M, value, axis=0) # Delete fold line
+        newArray = []
+        matchingRow = 2
+        # array = [ [ "." for i in range(n+1) ] for j in range(m+1) ]
+        for i in range(len(M)):
+            # if i < value:
+            #     newArray.append(M[i])
+            if i > value:
+                newRow = getMergedRow(M[i-matchingRow], M[i])
+                newArray.append(newRow)
+                matchingRow += 2
+        M = np.array(newArray)
+        M = np.flipud(M)
+        if coord == 'x':
+            M = M.transpose()
+    return M
 
-
-        break
+def getMergedRow(row1, row2):
+    mergedRow = []
+    for i in range(len(row1)):
+        if row1[i] == '#' or row2[i] == '#':
+            mergedRow.append('#')
+        else:
+            mergedRow.append('.')
+    return mergedRow
 
 M, listFoldLines = getMatrix(inputfile)
 print(M, '\n', listFoldLines)
 
 M = foldLines(M, listFoldLines)
+print(M)
+
+countDots = 0
+for row in M:
+    for pt in row:
+        if pt == '#':
+            countDots += 1
+
+print(countDots)
